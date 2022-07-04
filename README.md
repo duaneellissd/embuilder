@@ -122,14 +122,14 @@ Configuration:
 
     ConfigDir = determine_config_dirname()
     for each subproject in priority order:
-    	import  subproject.Project as ProjectName
+    	import  subproject.SubProject as ProjectName
     	ProjectName.configure( config=jsondictionary, configdir=ConfigDir )
 
 Build:
 
     for each step in ( "prebuild", "build", "postbuild" ):
         for each subproject in priority orderE:
-    		import subproject.Project as ProjecName
+    		import subproject.SubProject as ProjecName
 		ProjectName.Build( configdir=ConfigDir, step =step )
 
 	
