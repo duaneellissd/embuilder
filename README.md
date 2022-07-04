@@ -61,7 +61,8 @@ A Configuration SubProject (special case of a SUB PROJECT)
 	* The SAIL boat is the only one with the SAIL module
 	* The ROW BOAT is the only one with OARS
 	* All boats have various configurations of SAFTY_EQUIPMENT
-	* 
+ * One would choose a configuration and build that configuration (See below, Building)
+ 
 ## How do Configurations work?
 ### Configuration Steps via the GUI
 **is this required?** Answer: NO, but please continue reading. 
@@ -99,5 +100,37 @@ The configuration.JSON file will be stored in the file:
     ${ROOT_PROJ_DIR}/cfg_Debug/config.json
 
 When configuration is performed, each module will be called passing (1) the module name as used in the project, and (2) the JSON dict, the module can then extract what it needs from the JSON file
+
+### Building
+
+All building is done within the selected CONFIG_DIR.
+
+Note: When the statement is: "For Each Sub Project" that means:
+  Itterate over the subprojects
+  The very first is the Configuration project.
+  Then each sub project listed in in the ROOT_PROJ_FILE with a priority order
+  Priority orders are simple integers and must be unqiue.
+
+### What are project files?
+
+Project files are python files with a single class called SubProject.
+One can think of it like this:
+
+Various options work like this:
+
+Configuration:
+    ConfigDir = determine_config_dirname()
+    for each subproject in priority order:
+    	import  subproject.Project as ProjectName
+    	ProjectName.configure( config=jsondictionary, configdir=ConfigDir )
+
+Build:
+    for each step in ( "prebuild", "build", "postbuild" ):
+        for each subproject in priority orderE:
+    		import subproject.Project as ProjecName
+		ProjectName.Build( configdir=ConfigDir, step =step )
+
+	
+
 
 
